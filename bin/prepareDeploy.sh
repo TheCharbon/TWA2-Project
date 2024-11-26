@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd ../public/
+cd ../client/
 npm install
 npm run build
 
