@@ -7,14 +7,32 @@ import Form from './Form/Form';
 import { getPosts } from '../actions/posts';
 import useStyles from '../styles';
 import memories from '../images/memories.png';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export const App = () => {
+  const history = useHistory()
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(getPosts());
+    const token = localStorage.getItem("jwt")
+    if (token){
+      const url = `http://localhost:${process.env.PORT}/auth/validate`
+      const obj = {
+        method:"POST",
+        body: JSON.stringify({
+          "token": token
+        })
+      }
+
+      let result = await fetch(url, obj)
+      let response = await result.json()
+      if (response.status !== 200){
+        history.push("/main")
+      }
+    }
   }, [currentId, dispatch]);
 
   return (
