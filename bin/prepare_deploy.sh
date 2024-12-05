@@ -2,7 +2,7 @@
 set -e
 
 cd ../client/
-npm install
+\npm install
 npm run build
 
 rm -rf ../server/react_build || true
