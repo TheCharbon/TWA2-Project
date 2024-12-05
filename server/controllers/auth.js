@@ -18,12 +18,10 @@ export const loginUser = async (req, res) => {
         res.status(400).json({message: "No Password Provided"})
         return
     }
-
     if (!body.email){
         res.status(400).json({message: "No Email Provided"})
         return
     }
-
     const inputEmail = req.body.email
     const password = req.body.password
     const user = await User.findOne({email : inputEmail});
