@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-./prepareDeploy.sh
+#./prepareDeploy.sh
 
 aws s3 cp ../server/full.zip s3://snappy-chat-zip/full.zip
 

@@ -1,0 +1,57 @@
+# File for CI/CD Pipeline
+stages: # declaration & order/organization
+  - install
+  - lint
+  - documentation
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - server/node_modules/
+    - client/node_modules/
+#    - public/build/
+
+install-be:
+  stage: install
+  script:
+    - cd public
+    - npm install
+
+install-fe:
+  stage: install
+  script:
+    - cd server
+    - npm install
+
+# lint-job:
+#   stage: lint
+#   script:
+#     - cd server
+#     - npx eslint
+
+# test-1-job:
+#   stage: test
+#   script:
+#     - cd server
+#     - npx concurrently "node index.js" "npx jest test/index.test.js" --kill-others --success "first"
+#   artifacts:
+#     reports:
+#       junit: server/test-result/junit.xml
+  
+
+build-job:
+  stage: build
+  script:
+    - cd bin
+    - ./prepare_deploy.sh
+  artifacts:
+    paths:
+      - client/build/
+
+deploy-job:
+  stage: deploy
+  script:
+  - cd bin
+  - ./publish_app.sh
