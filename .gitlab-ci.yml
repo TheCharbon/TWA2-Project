@@ -11,12 +11,12 @@ cache:
   paths:
     - server/node_modules/
     - client/node_modules/
-#    - public/build/
+#    - client/build/
 
 install-be:
   stage: install
   script:
-    - cd public
+    - cd client
     - npm install
 
 install-fe:
