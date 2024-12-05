@@ -27,9 +27,9 @@ export const App = () => {
 
       console.log(obj)
       let result = await fetch(url, obj)
-      let response = await result.json()
+      let body = await result.json()
       if (result.status === 200 || result.status === 201){
-        localStorage.setItem("jwt", response.jwt)
+        localStorage.setItem("jwt", body.jwt)
         history.push("/main")
       }
     } else {

@@ -15,25 +15,31 @@ export const App = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  useEffect(async () => {
-    dispatch(getPosts());
-    const token = localStorage.getItem("jwt")
-    if (token){
-      const url = `http://localhost:5000/auth/validate`
-      const obj = {
-        method:"POST",
-        headers: {"Content-Type": "application/json",},
-        body: JSON.stringify({
-          "token": token
-        })
-      }
+  useEffect(() => {
+    async function on_ready() {
+      dispatch(getPosts());
+      const token = localStorage.getItem("jwt")
+      if (token) {
+        const url = `http://localhost:5000/auth/validate`
+        const obj = {
+          method: "POST",
+          headers: { "Content-Type": "application/json", },
+          body: JSON.stringify({
+            "token": token
+          })
+        }
 
-      let result = await fetch(url, obj)
-      let response = await result.json()
-      if (response.status !== 200){
-        history.push("/main")
+        let response = await fetch(url, obj)
+        console.log("pass1");
+        if (response.status !== 200) {
+          console.log("pass2");
+          history.push("/")
+        }
+      } else {
+        history.push("/")
       }
     }
+    on_ready()
   }, [currentId, dispatch]);
 
   return (
