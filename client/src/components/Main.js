@@ -19,9 +19,10 @@ export const App = () => {
     dispatch(getPosts());
     const token = localStorage.getItem("jwt")
     if (token){
-      const url = `http://localhost:${process.env.PORT}/auth/validate`
+      const url = `http://localhost:5000/auth/validate`
       const obj = {
         method:"POST",
+        headers: {"Content-Type": "application/json",},
         body: JSON.stringify({
           "token": token
         })

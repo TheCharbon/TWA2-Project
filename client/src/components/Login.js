@@ -14,22 +14,26 @@ export const App = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()){
-      const { username, password } = values;
-      const url = `http://localhost:${process.env.PORT}/auth/login`
+      const url = "http://localhost:5000/auth/login"
+      console.log(values.username, " ", values.password)
       const obj = {
         method:"POST",
+        headers: {"Content-Type": "application/json",},
         body: JSON.stringify({
-          "email": username,
-          "password": password 
+          "email": values.username,
+          "password": values.password 
         })
       }
 
+      console.log(obj)
       let result = await fetch(url, obj)
       let response = await result.json()
-      if (response.status === 200){
-        localStorage.setItem("jwt", response.body.jwt)
+      if (result.status === 200 || result.status === 201){
+        localStorage.setItem("jwt", response.jwt)
         history.push("/main")
       }
+    } else {
+      console.log("No mesage")
     }
   };
 
