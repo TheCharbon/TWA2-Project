@@ -11,15 +11,17 @@ cache:
   paths:
     - server/node_modules/
     - client/node_modules/
-#    - client/build/
+    - client/build/
 
-install-be:
+install-fe:
   stage: install
   script:
     - cd client
     - npm install
+    - echo $env:ijjtr
+    - echo $env:ijjtr
 
-install-fe:
+install-be:
   stage: install
   script:
     - cd server
@@ -45,7 +47,6 @@ build-job:
   stage: build
   script:
     - cd ../client/
-    #- npm install
     - npm run build
     - rm -rf ../server/react_build || true
     - cp -r build/ ../server/react_build
@@ -62,7 +63,7 @@ deploy-job:
   stage: deploy
   script:
   - aws s3 cp ../server/full.zip s3://snappy-chat-zip/full.zip
-  - VERSION_LABEL="v$(date +%Y%m%d%H%M%S)"
+  - $VERSION_LABEL = "v$(Get-Date -Format 'yyyyMMddHHmmss')"
   - echo "new version label $VERSION_LABEL"
   - aws elasticbeanstalk create-application-version --application-name chat-application --version-label $VERSION_LABEL --source-bundle S3Bucket=snappy-chat-zip,S3Key=full.zip --no-cli-pager
   - aws elasticbeanstalk update-environment --environment-name Chat-application-env --version-label $VERSION_LABEL --no-cli-pager
