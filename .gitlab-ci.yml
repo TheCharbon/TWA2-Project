@@ -18,14 +18,18 @@ install-fe:
   script:
     - cd client
     - npm install
-    - echo $env:ijjtr
-    - echo $env:ijjtr
 
 install-be:
   stage: install
   script:
     - cd server
     - npm install
+    - echo $env:AWS_ACCESS_KEY_ID
+    - echo $env:AWS_SECRET_ACCESS_KEY
+    - echo $env:AWS_SESSION_TOKEN
+    - echo $env:BUCKET_NAME
+    - echo $env:APPLICATION_NAME
+    - echo $env:ENVIRONMENT_NAME
 
 # lint-job:
 #   stage: lint
@@ -46,7 +50,7 @@ install-be:
 build-job:
   stage: build
   script:
-    - cd ../client/
+    - cd client/
     - npm run build
     - rm -rf ../server/react_build || true
     - cp -r build/ ../server/react_build
@@ -62,9 +66,9 @@ build-job:
 deploy-job:
   stage: deploy
   script:
-  - aws s3 cp ../server/full.zip s3://snappy-chat-zip/full.zip
+  - aws s3 cp server/full.zip s3://$env:BUCKET_NAME/full.zip
   - $VERSION_LABEL = "v$(Get-Date -Format 'yyyyMMddHHmmss')"
   - echo "new version label $VERSION_LABEL"
-  - aws elasticbeanstalk create-application-version --application-name chat-application --version-label $VERSION_LABEL --source-bundle S3Bucket=snappy-chat-zip,S3Key=full.zip --no-cli-pager
-  - aws elasticbeanstalk update-environment --environment-name Chat-application-env --version-label $VERSION_LABEL --no-cli-pager
+  - aws elasticbeanstalk create-application-version --application-name $env:APPLICATION_NAME --version-label $VERSION_LABEL --source-bundle S3Bucket=snappy-chat-zip,S3Key=full.zip --no-cli-pager
+  - aws elasticbeanstalk update-environment --environment-name $env:ENVIRONMENT_NAME --version-label $VERSION_LABEL --no-cli-pager
   - echo "Deploy completed"
