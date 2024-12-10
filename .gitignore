@@ -3,4 +3,6 @@ build
 .env
 full.zip
 react_build
+./test/res/test_results.xml
+./documentation/out/index.html
 gitlabvars.txt
