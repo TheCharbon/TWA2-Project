@@ -6,6 +6,7 @@ module.exports = {
     extends: [
       'plugin:react/recommended',
       'airbnb',
+
     ],
     globals: {
       Atomics: 'readonly',
@@ -20,7 +21,7 @@ module.exports = {
     },
     "parser": "babel-eslint",
     plugins: [
-      'react',
+      'react'
     ],
     rules: {
       "import/extensions": 0,
@@ -79,6 +80,6 @@ module.exports = {
             "preferButton"
           ]
         }
-      ]
+      ],
     }
   };

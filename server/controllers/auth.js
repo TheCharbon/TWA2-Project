@@ -1,7 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
-
-import PostMessage from '../models/postMessage.js';
 
 import User from '../models/user.js';
 
@@ -57,7 +54,6 @@ export const createUser = async (req, res) => {
         res.status(400).json({message: "No Email Provided"})
         return
     }
-    const email = body.email
     try{
         const existingUser = await User.findOne({ email: body.email });
         if(existingUser){
@@ -94,7 +90,7 @@ export const validate = async (req, res) =>{
         return
     }
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        jwt.verify(token, process.env.JWT_SECRET);
         res.status(200).json({message : "Token Verified"})
         return
     } catch {

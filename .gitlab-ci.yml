@@ -25,22 +25,29 @@ install-fe:
     - cd server
     - npm install
 
-# lint-job:
-#   stage: lint
-#   script:
-#     - cd server
-#     - npx eslint
+lint-job:
+  stage: lint
+  script:
+    - cd server
+    - npx eslint .
 
-# test-1-job:
-#   stage: test
-#   script:
-#     - cd server
-#     - npx concurrently "node index.js" "npx jest test/index.test.js" --kill-others --success "first"
-#   artifacts:
-#     reports:
-#       junit: server/test-result/junit.xml
+test-1-job:
+  stage: test
+  script:
+  - cd server
+  - npx concurrently --kill-others-on-fail --kill-others --success first "npm start" "npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./test/res/test_results.xml"
+  artifacts:
+    paths:
+      - test/res/test_results.xml
   
-
+doc-job:
+  stage: documentation
+  script:
+  - cd server
+  - npm run api_doc
+  artifacts:
+    paths:
+      - documentation/out/index.html
 build-job:
   stage: build
   script:

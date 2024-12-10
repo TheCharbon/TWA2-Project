@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
-import assert from 'assert';
 import mongoose from 'mongoose';
 import User from '../models/user.js';
 import {expect} from 'chai'
+// eslint-disable-next-line no-undef
 describe('testing the authentication routes', () => {
+  // eslint-disable-next-line no-undef
   before(async () => {
     const CONNECTION_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/project';
     try {
@@ -17,12 +18,14 @@ describe('testing the authentication routes', () => {
         throw error;
     }
     });
+    // eslint-disable-next-line no-undef
     after(async () => {
       const deletion_status = await deleteUser(test_emails[0])
       console.log('deletion_status: ', deletion_status);
       await mongoose.disconnect();
       console.log("Disconnected from MongoDB");
     });
+    // eslint-disable-next-line no-undef
     it('should return 200 signaling a successful user creation', async () => {
       //Arrange 
       const url = 'http://localhost:5000/auth/signup';
@@ -50,6 +53,7 @@ describe('testing the authentication routes', () => {
       //Cleanup
       deleteUser(test_emails[1])
     })
+    // eslint-disable-next-line no-undef
     it('should return 200 and return a jwt token on signin', async () => {
       // Arrange
       const url = 'http://localhost:5000/auth/login';
@@ -75,6 +79,7 @@ describe('testing the authentication routes', () => {
       expect(res.status).equals(200);
       expect(body).to.have.property('jwt')
     });
+    // eslint-disable-next-line no-undef
     it('should return 400 when fed a bad password', async () => {
         // Arrange
         const url = 'http://localhost:5000/auth/login';
@@ -136,6 +141,6 @@ describe('testing the authentication routes', () => {
         body : JSON.stringify(payload)
       })
   }
-  
+
   const demo_password = "1234567890"
   const test_emails = ["int_tester@test.com", "int_tester2@test.com", "int_tester3@test.com"]
