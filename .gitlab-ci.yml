@@ -59,11 +59,11 @@ build-job:
   script:
     - cd client/
     - npm run build
-    - rm -rf ../server/react_build || true
+    - if (Test-Path ../server/react_build) {rm -rf ../server/react_build}
     - cp -r build/ ../server/react_build
     - rm -rf build/
     - cd ../server
-    - rm full.zip || true
+    - if (Test-Path full.zip) {rm full.zip}
     - 7z a -tzip full.zip . -xr!node_modules
     - echo "preparations completed"
   artifacts:
