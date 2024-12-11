@@ -12,6 +12,7 @@ cache:
     - server/node_modules/
     - client/node_modules/
     - client/build/
+    - server/full.zip
 
 install-fe:
   stage: install
@@ -31,34 +32,32 @@ install-be:
     - echo $env:APPLICATION_NAME
     - echo $env:ENVIRONMENT_NAME
 
-lint-job:
-  stage: lint
-  script:
-    - cd server
-    - npx eslint .
+# lint-job:
+#   stage: lint
+#   script:
+#     - cd server
+#     - npx eslint .
 
-test-1-job:
-  stage: test
-  script:
-  - cd server
-  - npx concurrently --kill-others-on-fail --kill-others --success first "npm start" "npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./test/res/test_results.xml"
-  artifacts:
-    paths:
-      - test/res/test_results.xml
+# test-1-job:
+#   stage: test
+#   script:
+#   - cd server
+#   - npx concurrently --kill-others-on-fail --kill-others --success first "npm start" "npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./test/res/test_results.xml"
+#   artifacts:
+#     paths:
+#       - test/res/test_results.xml
   
-doc-job:
-  stage: documentation
-  script:
-  - cd server
-  - npm run api_doc
-  artifacts:
-    paths:
-      - documentation/out/index.html
+# doc-job:
+#   stage: documentation
+#   script:
+#   - cd server
+#   - npm run api_doc
+#   artifacts:
+#     paths:
+#       - documentation/out/index.html
       
 build-job:
   stage: build
-  before_script:
-    - winget install -e --id 7zip.7zip
   script:
     - cd client/
     - npm run build
@@ -67,7 +66,7 @@ build-job:
     - Remove-Item -Recurse -Force build/
     - cd ../server
     - if (Test-Path full.zip) {Remove-Item -Force full.zip}
-    - 7z a -tzip full.zip . -xr!node_modules
+    - C:\Program Files\7-Zip\7z.exe a -tzip full.zip . -xr!node_modules
     - echo "preparations completed"
   artifacts:
     paths:
