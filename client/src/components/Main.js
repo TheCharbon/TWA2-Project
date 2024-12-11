@@ -30,7 +30,6 @@ export const App = () => {
         }
 
         let response = await fetch(url, obj)
-        console.log("pass1");
         if (response.status !== 200) {
           console.log("pass2");
           history.push("/")
@@ -40,7 +39,7 @@ export const App = () => {
       }
     }
     on_ready()
-  }, [currentId, dispatch]);
+  }, [currentId, dispatch, history]);
 
   return (
     <Container maxWidth="lg">
