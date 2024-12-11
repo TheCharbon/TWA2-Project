@@ -1,0 +1,2 @@
+2nd video: https://slcqc-my.sharepoint.com/:v:/g/personal/colin_madore_stu_crc-lennox_qc_ca/EZ5NjjGNVUpLmzqcpAnw8NYBMB3gddvio4_4eCVf1GHyJw?referrer=Teams.TEAMS-ELECTRON&referrerScenario=MeetingChicletGetLink.view
+link to deploy: http://twa2-project-env.eba-wjsn6dpd.us-east-1.elasticbeanstalk.com/
