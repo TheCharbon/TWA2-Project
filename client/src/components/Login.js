@@ -16,7 +16,7 @@ export const App = () => {
 
       event.preventDefault();
       if (validateForm()){
-        const url = "http://localhost:5000/auth/login"
+        const url = "/auth/login"
         console.log(values.username, " ", values.password)
         const obj = {
           method:"POST",
