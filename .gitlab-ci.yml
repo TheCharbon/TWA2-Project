@@ -66,7 +66,7 @@ build-job:
     - Remove-Item -Recurse -Force build/
     - cd ../server
     - if (Test-Path full.zip) {Remove-Item -Force full.zip}
-    - C:\Program Files\7-Zip\7z.exe a -tzip full.zip . -xr!node_modules
+    - &"C:\Program Files\7-Zip\7z.exe" a -tzip full.zip . -xr!node_modules
     - echo "preparations completed"
   artifacts:
     paths:
