@@ -57,6 +57,8 @@ install-be:
       
 build-job:
   stage: build
+  before_script:
+    - winget install -e --id 7zip.7zip
   script:
     - cd client/
     - npm run build
