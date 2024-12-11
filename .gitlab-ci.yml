@@ -60,11 +60,11 @@ build-job:
   script:
     - cd client/
     - npm run build
-    - if (Test-Path ../server/react_build) {rm -rf ../server/react_build}
+    - if (Test-Path ../server/react_build) {Remove-Item -Recurse -Force ../server/react_build}
     - cp -r build/ ../server/react_build
-    - rm -rf build/
+    - Remove-Item -Recurse -Force build/
     - cd ../server
-    - if (Test-Path full.zip) {rm full.zip}
+    - if (Test-Path full.zip) {Remove-Item -Force full.zip}
     - 7z a -tzip full.zip . -xr!node_modules
     - echo "preparations completed"
   artifacts:
